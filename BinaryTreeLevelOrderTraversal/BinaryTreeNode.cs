@@ -10,8 +10,10 @@ namespace BinaryTreeLevelOrderTraversal
     {
         public BinaryTreeNode LeftChild { get; set; } = null;
         public BinaryTreeNode RightChild { get; set; } = null; 
-        public int Data { get; set; } 
+        public int Data { get; set; }
 
+
+        public bool NoChildren => RightChild == null && LeftChild == null;
         public BinaryTreeNode()
         {
         }

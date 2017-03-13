@@ -23,9 +23,7 @@ namespace BinaryTreeLevelOrderTraversal
             tree.InsertValue(9);
             tree.InsertValue(10);
 
-            tree.InOrderTraversal();
-
-            tree.LevelOrderTraversal();
+            tree.PrettyPrint();
             Console.ReadKey();
 
 

@@ -77,7 +77,7 @@ namespace BinaryTreeLevelOrderTraversal
 
         public void LevelOrderTraversal()
         {
-            Console.WriteLine("-----Level Order Traversal-----");
+            if (RootNode == null) return;
             var currentLevelQueue = new Queue<BinaryTreeNode>();
             var processedCurrentLevelQueue = new Queue<BinaryTreeNode>();
             var NextLevelQueue = new Queue<BinaryTreeNode>();
@@ -107,8 +107,22 @@ namespace BinaryTreeLevelOrderTraversal
                     NextLevelQueue = new Queue<BinaryTreeNode>();                 
                 }
             }
+        }
 
+        public void PrettyPrint()
+        {
+            PrettyPrint("", RootNode);   
+        }
 
+        private static void PrettyPrint(string indent, BinaryTreeNode currentNode) 
+        {
+            if (currentNode == null) return;
+            Console.WriteLine($"| {indent} {currentNode.Data}");
+            if (!currentNode.NoChildren)
+            {
+                PrettyPrint(indent + "\t", currentNode.LeftChild);
+                PrettyPrint(indent + "\t", currentNode.RightChild);
+            }
         }
 
     }
