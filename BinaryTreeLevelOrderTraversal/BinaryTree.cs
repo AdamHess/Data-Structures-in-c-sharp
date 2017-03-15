@@ -20,7 +20,7 @@ namespace BinaryTreeLevelOrderTraversal
             if (node != null)
             {
                 InOrderTraversalRecursive(node.LeftChild);
-                Console.WriteLine(node.Data);
+                Console.WriteLine(node.Key);
                 InOrderTraversalRecursive(node.RightChild);
             }
 
@@ -30,9 +30,9 @@ namespace BinaryTreeLevelOrderTraversal
         {
             var node = new BinaryTreeNode
             {
-                Data = value
+                Key = value
             };
-            InsertNode(node);            
+            InsertNode(node);
         }
         public void InsertNode(BinaryTreeNode node)
         {
@@ -50,7 +50,7 @@ namespace BinaryTreeLevelOrderTraversal
         {
             if (currentNode == null) return;
 
-            if (insertionNode.Data > currentNode.Data)
+            if (insertionNode.Key > currentNode.Key)
             {
                 if (currentNode.LeftChild == null)
                 {
@@ -71,7 +71,7 @@ namespace BinaryTreeLevelOrderTraversal
                 {
                     InsertNodeRecursive(currentNode.RightChild, insertionNode);
                 }
-            }                            
+            }
         }
 
 
@@ -83,7 +83,7 @@ namespace BinaryTreeLevelOrderTraversal
             var NextLevelQueue = new Queue<BinaryTreeNode>();
 
             currentLevelQueue.Enqueue(RootNode);
-            while(currentLevelQueue.Any())
+            while (currentLevelQueue.Any())
             {
                 var currentNode = currentLevelQueue.Dequeue();
                 if (currentNode.LeftChild != null)
@@ -97,32 +97,60 @@ namespace BinaryTreeLevelOrderTraversal
                 processedCurrentLevelQueue.Enqueue(currentNode);
                 if (!currentLevelQueue.Any())
                 {
-                    foreach(var node in processedCurrentLevelQueue)
+                    foreach (var node in processedCurrentLevelQueue)
                     {
-                        Console.Write($"{node.Data} ");
+                        Console.Write($"{node.Key} ");
                     }
                     Console.Write("\n");
                     currentLevelQueue = NextLevelQueue;
                     processedCurrentLevelQueue = new Queue<BinaryTreeNode>();
-                    NextLevelQueue = new Queue<BinaryTreeNode>();                 
+                    NextLevelQueue = new Queue<BinaryTreeNode>();
                 }
             }
         }
 
         public void PrettyPrint()
         {
-            PrettyPrint("", RootNode);   
+            PrettyPrint("", RootNode);
         }
 
-        private static void PrettyPrint(string indent, BinaryTreeNode currentNode) 
+        private static void PrettyPrint(string indent, BinaryTreeNode currentNode)
         {
             if (currentNode == null) return;
-            Console.WriteLine($"| {indent} {currentNode.Data}");
+            Console.WriteLine($"{indent}-{currentNode.Key}");
             if (!currentNode.NoChildren)
             {
-                PrettyPrint(indent + "\t", currentNode.LeftChild);
-                PrettyPrint(indent + "\t", currentNode.RightChild);
+                PrettyPrint(indent + "    |", currentNode.LeftChild);
+                PrettyPrint(indent + "    |", currentNode.RightChild);
             }
+        }
+
+        public BinaryTreeNode Find(int key)
+        {
+            return RecursiveFind(key, RootNode);
+
+        }
+
+        private BinaryTreeNode RecursiveFind(int key, BinaryTreeNode currentNode)
+        {
+
+            if (currentNode.Key == key)
+            {
+                return currentNode;
+            }
+            else if (currentNode.Key < key && currentNode.LeftChild != null)
+            {
+                return RecursiveFind(key, currentNode.LeftChild);
+            }
+            else if (currentNode.RightChild != null)
+            {
+                return RecursiveFind(key, currentNode.RightChild);
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
     }

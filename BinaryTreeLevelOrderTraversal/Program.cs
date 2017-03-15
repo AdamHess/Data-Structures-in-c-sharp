@@ -22,8 +22,12 @@ namespace BinaryTreeLevelOrderTraversal
             tree.InsertValue(8);
             tree.InsertValue(9);
             tree.InsertValue(10);
-
             tree.PrettyPrint();
+
+            var key = 30;
+            Console.WriteLine($"Searching for node with Key: {key}");
+            var node = tree.Find(key);
+            Console.WriteLine($"Did We find it? {node != null}");
             Console.ReadKey();
 
 
